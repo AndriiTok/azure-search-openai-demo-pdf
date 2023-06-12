@@ -14,6 +14,15 @@
     "openAiServiceName": {
       "value": "${AZURE_OPENAI_SERVICE}"
     },
+    "openAiServiceKey": {
+      "value": "${AZURE_OPENAI_KEY}"
+    },
+    "gptDeploymentName": {
+      "value": "${AZURE_OPENAI_GPT_DEPLOYMENT}"
+    },
+    "chatGptDeploymentName": {
+      "value": "${AZURE_OPENAI_CHATGPT_DEPLOYMENT}"
+    },
     "openAiResourceGroupName": {
       "value": "${AZURE_OPENAI_RESOURCE_GROUP}"
     },
