@@ -37,9 +37,9 @@ class ReadDecomposeAsk(Approach):
         else:
             r = self.search_client.search(q, filter=filter, top=top)
         if use_semantic_captions:
-            self.results = [doc[self.sourcepage_field] + ":" + nonewlines(" . ".join([c.text for c in doc['@search.captions'] ])) for doc in r]
+            self.results = [nonewlines(" . ".join([c.text for c in doc['@search.captions'] ])) for doc in r]
         else:
-            self.results = [doc[self.sourcepage_field] + ":" + nonewlines(doc[self.content_field][:500]) for doc in r]
+            self.results = [nonewlines(doc[self.content_field][:500]) for doc in r]
         return "\n".join(self.results)
 
     def lookup(self, q: str) -> str:
