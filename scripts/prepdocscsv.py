@@ -42,7 +42,6 @@ def create_search_index():
             name=args.index,
             fields=[
                 SimpleField(name="id", type="Edm.String", key=True),
-                SearchableField(name="name", type="Edm.String", analyzer_name="en.microsoft"),
                 SearchableField(name="content", type="Edm.String", analyzer_name="en.microsoft")
             ],
             semantic_settings=SemanticSettings(
@@ -52,7 +51,6 @@ def create_search_index():
                         title_field=None,
                         prioritized_content_fields=[
                             # CHANGES THESE TO FIT FIELD-NAMES THAT SUIT YOUR DATA 
-                            SemanticField(field_name='name'),
                             SemanticField(field_name='content')
                         ]))
                 ])
@@ -79,7 +77,7 @@ def index_sections(sections):
             batch = IndexDocumentsBatch()
 
     if len(batch.actions) > 0:
-        results = search_client.upload_documents(documents=batch)
+        results = search_client.index_documents(batch=batch)
         succeeded = sum([1 for r in results if r.succeeded])
     if args.verbose: print(f"\tIndexed {len(results)} sections, {succeeded} succeeded")
 
@@ -118,9 +116,9 @@ else:
                 for row in csv_reader:
                     content = ""
                     for fieldname in csv_reader.fieldnames[1:]:
-                        content += f"{fieldname}: {row[fieldname]} "
+                        content += f"{fieldname.strip()}: {row[fieldname].strip()}, "
         
-                    section = {"name": row["name"], "content": content.strip()}
+                    section = {"id": row["id"], "content": content.rstrip(", ")}
                     sections.append(section)
 
                 index_sections(sections)
