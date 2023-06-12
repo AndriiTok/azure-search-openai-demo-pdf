@@ -1,6 +1,7 @@
 import { Outlet, NavLink, Link } from "react-router-dom";
 
 import github from "../../assets/github.svg";
+import logo from "../../assets/rubix-logo.png";
 
 import styles from "./Layout.module.css";
 
@@ -9,6 +10,7 @@ const Layout = () => {
         <div className={styles.layout}>
             <header className={styles.header} role={"banner"}>
                 <div className={styles.headerContainer}>
+                    <img src={logo} />
                     <Link to="/" className={styles.headerTitleContainer}>
                         <h3 className={styles.headerTitle}>GPT + Enterprise data | Rubix Demo</h3>
                     </Link>
